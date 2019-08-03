@@ -15,12 +15,12 @@ public class ConexionConMySQL {
     private final String user = "Alex";
     private final String password = "root";
     private final String url = "jdbc:mysql://localhost:3306/usuarios";
-    private Connection conection = null;
+    private Connection connection = null;
 
     public ConexionConMySQL() {
         try {
             System.out.println("Conectado...");
-            this.conection = DriverManager.getConnection(url, user, password);
+            this.connection = DriverManager.getConnection(url, user, password);
             System.out.println("Conectado");
         } catch (SQLException e) {
             System.out.println("Fatal Error Caos Total Fin Del Mundo: " + e.getMessage());
@@ -29,17 +29,17 @@ public class ConexionConMySQL {
     }
 
     public void CloseConection() throws SQLException {
-        conection.close();
+        connection.close();
+        System.out.println("Conexion Cerrada");
     }
 
     public void Statements() throws SQLException {
-        Statement statement = this.conection.createStatement();
+        Statement statement = this.connection.createStatement();
         ResultSet resultado = statement.executeQuery("Select*from users");
         Imprimir(resultado);
     }
 
     public void Imprimir(ResultSet bolsitaDatos) throws SQLException {
-        int contador = 1;
         while (bolsitaDatos.next()) {
             System.out.println(bolsitaDatos.getString("nombre") + " " + bolsitaDatos.getString("apellido"));
         }
